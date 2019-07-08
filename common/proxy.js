@@ -14,6 +14,7 @@ class Proxy{
     }
     async post(option){
         return await request.post(option.url,{
+            'Content-type':option.contentType,
             encoding:option.encoding,
             qs:option.query,
             json:true,

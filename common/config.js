@@ -3,9 +3,9 @@
  */
 module.exports={
     domain:"https://api.weixin.qq.com",
-    paydomain:"https://api.mch.weixin.qq.com/sandboxnew",
+    paydomain:"https://api.mch.weixin.qq.com",
     mch_id:"1534365561",
-    key:"CGfG2pNvZK0UtMZl1K1YIdxFGsU3oAwp",
+    paykey:"CGfG2pNvZK0UtMZl1K1YIdxFGsU3oAwp",
     notify_url:"",
     grant_type:"authorization_code",
     appid:"wx515e04dea1390dd5",

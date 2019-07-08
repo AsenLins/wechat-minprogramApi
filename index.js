@@ -6,7 +6,7 @@ const login=require('./interface/login');
 const accessToken=require('./interface/accessToken');
 const qr=require('./interface/qr');
 const cryptoRandomString = require('crypto-random-string');
-
+const pay=require('./interface/pay');
 //import proxy from './common/proxy';
 
 
@@ -18,7 +18,7 @@ class Base{
 }
 
 async function logintest(){
-   const result= await login.code2Session('023c4l6G07u5uc2jMX5G082b6G0c4l6T');
+   const result= await login.code2Session('0436Wh7C0toIzh2fiF9C0LtA7C06Wh7m');
    console.log(result);
 } 
 
@@ -41,12 +41,12 @@ async function testPost(){
     }).pipe(fs.createWriteStream('test.jpg'));
     */
     const result=await qr.create({
-        accessToken:'23_aSix01zUU4e0dDis5Fn9JupE1WGlkNOZyqapS6XYUTSBVU42Z0EAVlq1f63Njod-bB3KUJaeMsiWoVXNUg6qTiOddGnkX5hJ0ljQZaDD9sSWidvcLa-zW25lpiQxWa07R9dbSjubZxIdKHj5NECiAJAEVT',
+        accessToken:'23_pFiNfl6WBkBj4kX-6YXGcv4ecbdTPX0qHyQHBlwx8-QaHmJswJdBh71P6sZs3bB5i869m68Xe4Xa2vRvP6ImEiyKUYsWoUru2J52hJ-5aCKc63gkjnONrFGQGQll07MConJ0AScZQlvTRRZaKEFaAFAEYZ',
         width:'220px',
         path:'/home'
     });
 
-    fs.writeFile('./test.png', result,'binary' ,function(err) {
+    fs.writeFile('./test2.png', result,'binary' ,function(err) {
         if(err) {console.log(err)}
         console.log('save img success');
     });   
@@ -106,13 +106,53 @@ async function testlogindecryptData(){
 }
 
 
+//logintest();
+//testlogindecryptData();
+
+
+async function testPayOrder(){
+   const result=await pay.unifiedorder({
+        total_fee:1, 
+        out_trade_no:'20134225',
+        openid:'o3svm5e7YYnCohaezSDm8UX7_Lno',
+        spbill_create_ip:'192.168.1.1',
+        notify_url:'http://www.mktec2019.com',
+        body:'测试'
+    });
+
+    console.log('下单测试',result);
+    
+
+}
+async function testorderquery(){
+    const result=await pay.orderquery({
+        out_trade_no:'20134225',
+    });
+    console.log('下单查询',result);
+}
+
+async function testcloseOrder(){
+    const result=await pay.closeorder({
+        out_trade_no:'20134225',
+    });
+    console.log('关闭订单',result);
+}
+//testPost();
+testPayOrder();
+testorderquery();
+testcloseOrder();
+
+
+
+/*c
 const option={
     nonce_str:"123"
 }
+*/
 
-const nonce_str=option.nonce_str||cryptoRandomString({length:32}).toLocaleUpperCase();
+//const nonce_str=option.nonce_str||cryptoRandomString({length:32}).toLocaleUpperCase();
 
-console.log('random=',nonce_str);
+//console.log('random=',nonce_str);
 
 //logintest();
 //testloginSign();

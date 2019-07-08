@@ -10,6 +10,7 @@
   "license": "MIT",
   "dependencies": {
     "crypto-random-string": "^3.0.1",
+    "fast-xml-parser": "^3.12.16",
     "request": "^2.88.0",
     "request-promise": "^4.2.4"
   }
