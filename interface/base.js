@@ -1,6 +1,5 @@
-const proxy=require('../common/proxy');
-const config=require('../common/config');
-
+import proxy from '../common/proxy';
+import config from '../common/config';
 
 class Base{
     constructor(){

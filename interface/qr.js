@@ -1,4 +1,5 @@
-const Base=require('./base');
+import Base from './base'
+
 
 class QR extends Base{
     constructor(){
@@ -13,10 +14,10 @@ class QR extends Base{
         return await this.proxy.post({
             encoding:null,
             url:`${this.config.domain}/cgi-bin/wxaapp/createwxaqrcode`,
-            query:{
+            qs:{
                 access_token:accessToken
             },
-            payload:{
+            body:{
                 width,
                 path
             }
@@ -31,10 +32,10 @@ class QR extends Base{
         return await this.proxy.post({
             encoding:null,
             url:`${this.config.domain}/wxa/getwxacode`,
-            query:{
+            qs:{
                 access_token:accessToken
             },
-            payload:{
+            body:{
                 width,
                 path,
                 auto_color,
@@ -53,10 +54,10 @@ class QR extends Base{
         return await this.proxy.post({
             encoding:null,
             url:`${this.config.domain}/wxa/getwxacodeunlimit`,
-            query:{
+            qs:{
                 access_token:accessToken
             },
-            payload:{
+            body:{
                 scene,
                 page,
                 width,

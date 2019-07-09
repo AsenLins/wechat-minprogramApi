@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "babel-node ./test.js",
+    "start":"babel-node ./index.js"
+
   },
   "author": "asen",
   "license": "MIT",
@@ -13,5 +15,9 @@
     "fast-xml-parser": "^3.12.16",
     "request": "^2.88.0",
     "request-promise": "^4.2.4"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0"
   }
 }

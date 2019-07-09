@@ -1,141 +1,137 @@
-const Base=require('./base');
-const crypto=require('crypto');
-const JsonToXmlParser = require("fast-xml-parser").j2xParser;
-var XmlToJsonParser = require('fast-xml-parser');
-const cryptoRandomString = require('crypto-random-string');
+
+import Base from './base';
+import fs from 'fs';
+import {xmlToJson,jsonToXml,signToMD5,sortByASCII,getNonceStr} from '../common/unit';
+
 const sendPost = Symbol('sendPost');
-
-const helper={
-    getParams(params,obj){
-        const newParams={};
-        params.forEach(item=>{
-            if(obj[item]!==undefined||item==='sign'){
-                newParams[item]=obj[item];
-            }
-        });
-        return newParams;
-    },
-    sort(){
-
-    },
-    signToMD5(obj){
-
-    }
-}
 
 class Pay extends Base {
     constructor(){
-        super();
-        this.params=[
-            'appid',
-            'mch_id',
-            'device_info',
-            'nonce_str',
-            'sign',
-            'sign_type',
-            'body',
-            'detail',
-            'attach',
-            'transaction_id',
-            'out_trade_no',
-            'fee_type',
-            'total_fee',
-            'spbill_create_ip',
-            'time_start',
-            'time_expire',
-            'goods_tag',
-            'notify_url',
-            'trade_type',
-            'product_id',
-            'limit_pay',
-            'openid',
-            'receipt',
-            'scene_info'
-        ].sort();        
+        super();        
     }
+
+    /**
+     * 统一下单
+     * @param {*} option 支付参数对象
+     */
     async unifiedorder(option){
-        const {appid,mch_id}=this.config;
+        const {appid,mch_id,paydomain}=this.config;
  
         const payParams=Object.assign(option,{
             appid,
             mch_id,
-            nonce_str:option.nonce_str||cryptoRandomString({length:32}),
+            nonce_str:option.nonce_str||getNonceStr(),
             trade_type:option.nonce_str||"JSAPI"
         })
 
-        return this[sendPost](`${this.config.paydomain}/pay/unifiedorder`,payParams);
+        return this[sendPost](`${paydomain}/pay/unifiedorder`,payParams);
     }
+    /**
+     * 查询订单
+     * @param {*} option 查询参数对象 
+     */
     async orderquery(option){
-        const {appid,mch_id}=this.config;
+        const {appid,mch_id,paydomain}=this.config;
         const payParams=Object.assign(option,{
             appid,
             mch_id,
-            nonce_str:option.nonce_str||cryptoRandomString({length:32}),
+            nonce_str:option.nonce_str||getNonceStr(),
         })
 
-        return this[sendPost](`${this.config.paydomain}/pay/orderquery`,payParams);
+        return this[sendPost](`${paydomain}/pay/orderquery`,payParams);
     }
-
+    /**
+     * 关闭订单
+     * @param {*} option 关闭参数对象
+     */
     async closeorder(option){
-        const {appid,mch_id}=this.config;
+        const {appid,mch_id,paydomain}=this.config;
         const payParams=Object.assign(option,{
             appid,
             mch_id,
-            nonce_str:option.nonce_str||cryptoRandomString({length:32}),
+            nonce_str:option.nonce_str||getNonceStr(),
         })
 
-        return this[sendPost](`${this.config.paydomain}/pay/closeorder`,payParams);      
+        return this[sendPost](`${paydomain}/pay/closeorder`,payParams);      
     }
-    
-    jsonToXml(jsonObj){
-        const J2XMLParser = new JsonToXmlParser();
-        return `<xml>${J2XMLParser.parse(jsonObj)}</xml>`;
-    }
-    xmlToJson(xmlObj){
-        var tObj = XmlToJsonParser.getTraversalObj(xmlObj);
-        return XmlToJsonParser.convertToJson(tObj);
-    }
-    sortByASCII(param){
-        return helper.getParams(this.params,param);
-    }
-    signToMD5(params){
-        const tempParams=JSON.parse(JSON.stringify(helper.getParams(this.params,params)));
-        
-        if(tempParams.sign){
-            delete tempParams.sign;
-        }
-        
-        let tempStr="";
-        const paramKeys=Object.keys(tempParams);
-        paramKeys.forEach(key=>{
-            tempStr=`${tempStr}&${key}=${params[key]}`
-        });
-        tempStr=tempStr.substring(1)+"&key="+this.config.paykey;
 
-        const md5=crypto.createHash("md5");
-              md5.update(tempStr);
-        const md5Sign=md5.digest('hex').toUpperCase();
+    /**
+     * 申请退款
+     * @param {*} option 退款参数对象
+     */
+    async refund(option){
+        const {appid,mch_id,refundCAPath,paydomain}=this.config;
+        const payParams=Object.assign(option,{
+            appid,
+            mch_id,
+            nonce_str:option.nonce_str||getNonceStr(),
+        })
 
-        //console.log('nosign',tempStr);
-        //console.log('sign',md5Sign);
-       
-        return md5Sign;
-
+        return this[sendPost](
+            `${paydomain}/secapi/pay/refund`,
+            payParams,
+            {
+                agentOptions: {
+                    pfx: fs.readFileSync(refundCAPath),
+                    passphrase: mch_id                
+                }
+            });
     }
-    async [sendPost](url,params){
-        const payParams=this.sortByASCII(params);
-        const sign=this.signToMD5(payParams);
+
+    /**
+     * 查询退款
+     * @param {*} option 退款查询对象
+     */
+    async refundquery(option){
+        const {appid,mch_id,paydomain}=this.config;
+        const payParams=Object.assign(option,{
+            appid,
+            mch_id,
+            nonce_str:option.nonce_str||getNonceStr(),
+        })
+
+        return this[sendPost](`${paydomain}/pay/refundquery`,payParams);
+    }
+
+    /**
+     * 下载对账单
+     * @param {*} option 下载参数对象
+     */
+    async downloadbill(option){
+        const {appid,mch_id,paydomain}=this.config;
+        const payParams=Object.assign(option,{
+            appid,
+            mch_id,
+            nonce_str:option.nonce_str||getNonceStr(),
+        })
+  
+        return this[sendPost](`${paydomain}/pay/downloadbill`,payParams);
+    }
+
+
+    /**
+     * 内部请求代理对象
+     * @param {*} url 请求地址
+     * @param {*} params 支付参数
+     * @param {*} requestOption request对象参数
+     */
+    async [sendPost](url,params,requestOption={}){
+        const {paykey}=this.config;
+        const payParams=sortByASCII(params);
+        const sign=signToMD5(payParams,paykey);
         payParams.sign=sign;
 
-        const payParamsXml = this.jsonToXml(payParams);
-
-        const payResult=await this.proxy.post({
+        const payParamsXml = jsonToXml(payParams).trim();
+        //console.log(payParams);
+        console.log('postParam=================',payParamsXml);
+        const payResult=await this.proxy.post(Object.assign({
             url,
-            contentType:'application/xml',
-            payload:payParamsXml
-        });
-        console.log('xml=',payParamsXml);
-        return this.xmlToJson(payResult);
+            contentType:'text/xml',
+            body:payParamsXml
+        },requestOption));
+        //console.log('payResult',payResult);
+        //console.log('xml=',payParamsXml);
+        return xmlToJson(payResult).xml;
     }
 
     

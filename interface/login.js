@@ -1,17 +1,16 @@
-const Base=require('./base');
-const crypto = require('crypto');
-const WXBizDataCrypt = require('../tools/WXBizDataCrypt');
+import Base from './base';
+import crypto from 'crypto';
+import WXBizDataCrypt from '../tools/WXBizDataCrypt';
+
 class Login extends Base{
     constructor(){
         super();
-      
-
     }
     
     /**
      * 微信服务端登录
-     * @param {微信小程序登录的code} js_code 
-     * @param {授权类型} grant_type 
+     * @param {String} js_code 
+     * @param {String} grant_type 
      */
     async code2Session(js_code,grant_type="authorization_code"){
         const {appid,secret}=this.config;
@@ -28,9 +27,9 @@ class Login extends Base{
 
     /**
      * 校验微信小程序用户信息
-     * @param {wx.login登录的session_key} session_key 
-     * @param {微信小程序用户信息的userInfo.rawData} rawData 
-     * @param {微信小程序用户信息的userInfo.signature} signature 
+     * @param {String} session_key 
+     * @param {String} rawData 
+     * @param {String} signature 
      */
     checkSign(option){
         const {session_key,rawData,signature}=option;
@@ -47,9 +46,9 @@ class Login extends Base{
 
     /**
      * 解析微信小程序encryptedData
-     * @param {*} encryptedData 微信小程序的userInfo.encryptedData
-     * @param {*} sessionKey wx.login登录后的sessionKey
-     * @param {*} iv 加密算法的初始向量
+     * @param {String} encryptedData 微信小程序的userInfo.encryptedData
+     * @param {String} sessionKey wx.login登录后的sessionKey
+     * @param {String} iv 加密算法的初始向量
      */
     
     decryptData({encryptedData,sessionKey,iv}){

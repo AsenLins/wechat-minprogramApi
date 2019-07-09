@@ -1,4 +1,4 @@
-var request = require('request-promise');
+import request from 'request-promise'
 
 /**
  * HTTP代理
@@ -13,13 +13,12 @@ class Proxy{
         })       
     }
     async post(option){
-        return await request.post(option.url,{
-            'Content-type':option.contentType,
-            encoding:option.encoding,
-            qs:option.query,
-            json:true,
-            body:option.payload
-        })
+        //option.body=option.body?JSON.stringify(option.body):'';
+        if(option.body&&option.body instanceof Object){
+            option.body=JSON.stringify(option.body);
+        }
+        console.log(option);
+        return await request.post(option.url,option)
     }
 
 }
