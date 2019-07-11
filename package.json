@@ -2,11 +2,10 @@
   "name": "wx-req",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./lib/index.js",
   "scripts": {
     "test": "babel-node ./test.js",
-    "start":"babel-node ./index.js"
-
+    "start": "babel-node ./index.js"
   },
   "author": "asen",
   "license": "MIT",

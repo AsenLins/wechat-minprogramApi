@@ -20,6 +20,17 @@ class Proxy{
         console.log(option);
         return await request.post(option.url,option)
     }
+    async sendPostWithAccessToken(option){
+        const { access_token } = option;
+        return await this.post({
+            encoding: null,
+            url,
+            qs: {
+                access_token
+            },
+            body: option         
+        })
+    }
 
 }
 
