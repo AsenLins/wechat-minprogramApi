@@ -8,7 +8,7 @@ const XmlToJsonParser=parse;
 /**
  * 生成32位随机字符串
  */
-export function getNonceStr(){
+module.export=function getNonceStr(){
     return cryptoRandomString({length:32});
 }
 
@@ -16,7 +16,7 @@ export function getNonceStr(){
  * json转xml
  * @param {*} jsonObj  需要转换的json对象
  */
-export function jsonToXml(jsonObj) {
+module.export= function jsonToXml(jsonObj) {
     const J2XMLParser = new JsonToXmlParser();
     return `<xml>${J2XMLParser.parse(jsonObj)}</xml>`;
 }
@@ -25,7 +25,7 @@ export function jsonToXml(jsonObj) {
  * xml转json
  * @param {*} xmlObj 需要转换的xml对象
  */
-export function xmlToJson(xmlObj) {
+module.export= function xmlToJson(xmlObj) {
     var tObj = XmlToJsonParser.getTraversalObj(xmlObj);
     return XmlToJsonParser.convertToJson(tObj);
 }
@@ -33,7 +33,7 @@ export function xmlToJson(xmlObj) {
  * 根据ASCII排序指定对象
  * @param {*} param 排序的对象
  */
-export function sortByASCII(param) {
+module.export= function sortByASCII(param) {
     const keys = Object.keys(param).sort();
     const sortObj = {};
     keys.forEach(key => {
@@ -47,7 +47,7 @@ export function sortByASCII(param) {
  * @param {*} payKey 商户密钥
  * @example {appid,mch_id,nonce_str}
  */
-export function signToMD5(params,payKey) {
+module.export=function signToMD5(params,payKey) {
     const tempParams = JSON.parse(JSON.stringify(sortByASCII(params)));
 
     if (tempParams.sign) {

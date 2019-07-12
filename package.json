@@ -1,8 +1,8 @@
 {
-  "name": "wx-req",
+  "name": "wx-minprogram",
   "version": "1.0.0",
   "description": "",
-  "main": "./lib/index.js",
+  "main": "./src/index.js",
   "scripts": {
     "test": "babel-node ./test.js",
     "start": "babel-node ./index.js"

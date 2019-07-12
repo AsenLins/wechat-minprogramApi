@@ -1,4 +1,5 @@
-import request from 'request-promise'
+
+const request=require('request-promise');
 
 /**
  * HTTP代理
