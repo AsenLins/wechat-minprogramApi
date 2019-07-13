@@ -2,7 +2,9 @@ const Base = require('./base');
 const crypto = require('crypto');
 const WXBizDataCrypt = require('../tools/WXBizDataCrypt');
 
-
+/**
+ * 登陆/接口调用凭证
+ */
 class Auth extends Base {
     constructor() {
         super();

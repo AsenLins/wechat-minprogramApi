@@ -3,7 +3,18 @@
   "version": "1.0.3",
   "description": "",
   "main": "./src/index.js",
-  "keywords":["微信小程序SDK","微信小程序服务端SDK","微信小程序","wx","wx-minprogram","wx-api","wx-minprogram-api","微信api","微信小程序支付sdk","微信"],
+  "keywords": [
+    "微信小程序SDK",
+    "微信小程序服务端SDK",
+    "微信小程序",
+    "wx",
+    "wx-minprogram",
+    "wx-api",
+    "wx-minprogram-api",
+    "微信api",
+    "微信小程序支付sdk",
+    "微信"
+  ],
   "scripts": {
     "test": "babel-node ./test.js",
     "start": "babel-node ./index.js"
