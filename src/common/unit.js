@@ -6,10 +6,14 @@ const WXBizDataCrypt = require('../tools/WXBizDataCrypt');
 const JsonToXmlParser = parse.j2xParser;
 const XmlToJsonParser = parse;
 
+
+
+
+
 /**
  * 生成32位随机字符串
  */
-module.export = function getNonceStr() {
+function getNonceStr() {
     return cryptoRandomString({ length: 32 });
 }
 
@@ -17,7 +21,7 @@ module.export = function getNonceStr() {
  * json转xml
  * @param {*} jsonObj  需要转换的json对象
  */
-module.export = function jsonToXml(jsonObj) {
+function jsonToXml(jsonObj) {
     const J2XMLParser = new JsonToXmlParser();
     return `<xml>${J2XMLParser.parse(jsonObj)}</xml>`;
 }
@@ -26,7 +30,7 @@ module.export = function jsonToXml(jsonObj) {
  * xml转json
  * @param {*} xmlObj 需要转换的xml对象
  */
-module.export = function xmlToJson(xmlObj) {
+function xmlToJson(xmlObj) {
     var tObj = XmlToJsonParser.getTraversalObj(xmlObj);
     return XmlToJsonParser.convertToJson(tObj);
 }
@@ -34,7 +38,7 @@ module.export = function xmlToJson(xmlObj) {
  * 根据ASCII排序指定对象
  * @param {*} param 排序的对象
  */
-module.export = function sortByASCII(param) {
+function sortByASCII(param) {
     const keys = Object.keys(param).sort();
     const sortObj = {};
     keys.forEach(key => {
@@ -48,7 +52,7 @@ module.export = function sortByASCII(param) {
  * @param {*} payKey 商户密钥
  * @example {appid,mch_id,nonce_str}
  */
-module.export = function signToMD5(params, payKey) {
+function signToMD5(params, payKey) {
     const tempParams = JSON.parse(JSON.stringify(sortByASCII(params)));
 
     if (tempParams.sign) {
@@ -77,7 +81,7 @@ module.export = function signToMD5(params, payKey) {
  * @param {String} signature 
  * @example checkSign({session_key,rawData,signature})
  */
-module.exports = function checkUserSign(option) {
+function checkUserSign(option) {
     const { session_key, rawData, signature } = option;
     if (session_key === undefined || rawData === undefined || signature === undefined || rawData === undefined) {
         return false;
@@ -93,9 +97,21 @@ module.exports = function checkUserSign(option) {
  * @param {String} iv 加密算法的初始向量
  * @example decryptData({encryptedData,sessionKey,iv})
  */
-module.exports = function decryptData(option) {
+function decryptData(option) {
     const { encryptedData, sessionKey, iv } = option;
     const { appid } = this.config;
     const wxBizDataCrypt = new WXBizDataCrypt(appid, sessionKey);
     return wxBizDataCrypt.decryptData(encryptedData, iv)
+}
+
+
+
+module.exports = {
+    getNonceStr,
+    jsonToXml,
+    xmlToJson,
+    sortByASCII,
+    signToMD5,
+    checkUserSign,
+    decryptData
 }
