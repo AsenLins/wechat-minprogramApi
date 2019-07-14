@@ -1,5 +1,8 @@
 const Base = require('./base');
 
+/**
+ * 附近的小程序
+ */
 class NearbyPoi extends Base {
 
     constructor(){

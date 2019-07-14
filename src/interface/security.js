@@ -1,5 +1,8 @@
 const Base = require('./base');
 
+/**
+ * 内容安全
+ */
 class Security extends Base {
 
     constructor(){

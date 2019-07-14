@@ -1,5 +1,8 @@
 const Base = require('./base');
 
+/**
+ * 插件管理
+ */
 class PluginManager extends Base {
 
     constructor(){

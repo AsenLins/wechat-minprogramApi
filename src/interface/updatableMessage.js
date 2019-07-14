@@ -1,5 +1,8 @@
 const Base = require('./base');
 
+/**
+ * 动态消息
+ */
 class UpdatableMessage extends Base {
 
     constructor(){

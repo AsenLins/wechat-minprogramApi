@@ -1,5 +1,8 @@
 const Base = require('./base');
 
+/**
+ * 模版消息
+ */
 class TemplateMessage extends Base {
     constructor(){
         super();

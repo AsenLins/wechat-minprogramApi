@@ -4,7 +4,9 @@ const { xmlToJson, jsonToXml, signToMD5, sortByASCII, getNonceStr } = require('.
 
 const sendPost = Symbol('sendPost');
 
-
+/**
+ * 小程序支付
+ */
 class Pay extends Base {
     constructor() {
         super();

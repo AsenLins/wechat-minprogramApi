@@ -1,5 +1,8 @@
 const Base = require('./base');
 
+/**
+ * 统一服务消息
+ */
 class UniformMessage extends Base {
 
     constructor(){
