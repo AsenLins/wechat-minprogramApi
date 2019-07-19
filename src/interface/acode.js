@@ -1,6 +1,8 @@
 const Base = require('./base');
 
-
+/**
+ * 小程序码
+ */
 class QR extends Base {
     constructor() {
         super();

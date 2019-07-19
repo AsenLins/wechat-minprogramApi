@@ -1,8 +1,9 @@
 const Base = require('./base');
-const crypto = require('crypto');
-const WXBizDataCrypt = require('../tools/WXBizDataCrypt');
 
 
+/**
+ * 登陆/接口调用凭证
+ */
 class Auth extends Base {
     constructor() {
         super();
@@ -66,35 +67,7 @@ class Auth extends Base {
         });
     }
 
-    /**
-     * 校验微信小程序用户信息
-     * @param {String} session_key 
-     * @param {String} rawData 
-     * @param {String} signature 
-     * @example checkSign({session_key,rawData,signature})
-     */
-    checkUserSign(option) {
-        const { session_key, rawData, signature } = option;
-        if (session_key === undefined || rawData === undefined || signature === undefined || rawData === undefined) {
-            return false;
-        }
-        const serverSign = crypto.createHash('sha1').update((rawData + session_key)).digest('hex');
-        return signature === serverSign;
-    }
 
-    /**
-     * 解析微信小程序encryptedData
-     * @param {*} encryptedData 微信小程序的userInfo.encryptedData
-     * @param {String} sessionKey wx.login登录后的sessionKey
-     * @param {String} iv 加密算法的初始向量
-     * @example decryptData({encryptedData,sessionKey,iv})
-     */
-    decryptData(option) {
-        const {encryptedData, sessionKey, iv}=option;
-        const { appid } = this.config;
-        const wxBizDataCrypt = new WXBizDataCrypt(appid, sessionKey);
-        return wxBizDataCrypt.decryptData(encryptedData, iv)
-    }
 
 }
 

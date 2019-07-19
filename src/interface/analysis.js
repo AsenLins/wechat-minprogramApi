@@ -1,5 +1,8 @@
 const Base = require('./base');
 
+/**
+ * 数据分析
+ */
 class Analysis extends Base {
     constructor() {
         super();
