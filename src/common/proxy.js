@@ -9,28 +9,29 @@ class Proxy{
         
     }
     async get(option){
-        return await request.get(option.url,{
+        return JSON.parse(await request.get(option.url,{
             qs:option.payload
-        })       
+        }));        
     }
-    async post(option){
+    async post(option,raw){
         //option.body=option.body?JSON.stringify(option.body):'';
         if(option.body&&option.body instanceof Object){
             option.body=JSON.stringify(option.body);
         }
-        console.log(option);
-        return await request.post(option.url,option)
+        const result=await request.post(option.url,option);
+        return raw?result:JSON.parse(result);
     }
+    
     async sendPostWithAccessToken(option){
         const { access_token } = option;
-        return await this.post({
+        return JSON.parse(await this.post({
             encoding: null,
             url,
             qs: {
                 access_token
             },
             body: option         
-        })
+        }));
     }
 
 }

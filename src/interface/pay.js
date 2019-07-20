@@ -128,8 +128,9 @@ class Pay extends Base {
         const payResult = await this.proxy.post(Object.assign({
             url,
             contentType: 'text/xml',
-            body: payParamsXml
-        }, requestOption));
+            body: payParamsXml,
+            convertJSON:false
+        }, requestOption),true);
         //console.log(payParams);
         //console.log('payResult',payResult);
         //console.log('xml=',payParamsXml);
