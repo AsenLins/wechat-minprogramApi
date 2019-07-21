@@ -5,6 +5,8 @@ const WXBizDataCrypt = require('../tools/WXBizDataCrypt');
 
 const JsonToXmlParser = parse.j2xParser;
 const XmlToJsonParser = parse;
+const config=require('./config');
+
 
 
 
@@ -99,7 +101,7 @@ function checkUserSign(option) {
  */
 function decryptData(option) {
     const { encryptedData, sessionKey, iv } = option;
-    const { appid } = this.config;
+    const { appid } = config.getConfig();
     const wxBizDataCrypt = new WXBizDataCrypt(appid, sessionKey);
     return wxBizDataCrypt.decryptData(encryptedData, iv)
 }
