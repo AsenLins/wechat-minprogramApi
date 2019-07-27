@@ -27,13 +27,13 @@ class Config{
         }
     }
     /**
-     * 设置微信参数
-     * @param {*} option 微信基础配置参数 
+     * 
+     * @param {*} param0 
      */
     setConfig(option={appid,secret,mch_id,domain,paydomain,paykey,refundCAPath,notify_url}){
         const configKeys=Object.keys(option);
         configKeys.forEach(key=>{
-            this.config[key]=option[key];
+            this.wxParams[key]=option[key];
         })
     }
     /**

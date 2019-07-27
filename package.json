@@ -16,7 +16,8 @@
     "微信"
   ],
   "scripts": {
-    "test": "babel-node ./test.js",
+   
+    "test": "mocha -r intelli-espower-loader test/common/proxy.test.js",
     "start": "babel-node ./index.js"
   },
   "author": "asen",
@@ -29,6 +30,9 @@
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.7.0"
+    "babel-preset-env": "^1.7.0",
+    "intelli-espower-loader": "^1.0.1",
+    "mocha": "^6.2.0",
+    "power-assert": "^1.6.1"
   }
 }

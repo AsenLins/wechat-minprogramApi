@@ -23,15 +23,16 @@ class Proxy{
     }
     
     async sendPostWithAccessToken(option){
-        const { access_token } = option;
-        return JSON.parse(await this.post({
+        const { access_token,url } = option;
+
+        return await this.post({
             encoding: null,
             url,
             qs: {
                 access_token
             },
             body: option         
-        }));
+        });
     }
 
 }
