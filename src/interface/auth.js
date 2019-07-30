@@ -38,7 +38,8 @@ class Auth extends Base {
      * @example getAccessToken({grant_type})
      */
     async getAccessToken(option) {
-        const {grant_type = "client_credential"}=option;
+        option=option===undefined?{grant_type:'client_credential'}:option;
+        const {grant_type}=option;
         const { appid, secret, domain } = this.config;
         return await this.proxy.get({
             url: `${domain}/cgi-bin/token`,

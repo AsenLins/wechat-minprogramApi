@@ -24,7 +24,7 @@ class QR extends Base {
                 width,
                 path
             }
-        });
+        },true);
     }
     /**
      * 获取小程序码，适用于需要的码数量较少的业务场景。通过该接口生成的小程序码，永久有效，有数量限制
@@ -46,7 +46,7 @@ class QR extends Base {
                 line_color,
                 is_hyaline
             }
-        });
+        },true);
     }
 
     /**
@@ -70,7 +70,7 @@ class QR extends Base {
                 line_color,
                 is_hyaline
             }
-        });
+        },true);
     }
 }
 
