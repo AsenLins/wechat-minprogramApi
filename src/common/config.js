@@ -23,7 +23,11 @@ class Config{
             paydomain:"",
             paykey:"",
             refundCAPath:'',
-            notify_url:""
+            notify_url:"",
+            accessTokenCache:{
+                access_token:'',
+                expires_in:''
+            }
         }
     }
     /**

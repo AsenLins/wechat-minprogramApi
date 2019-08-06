@@ -5,7 +5,7 @@ const assert = require('assert');
 
 
 describe('Proxy test', () => {
-  let access_token='';
+
   before(async () => {
     Config.setConfig({
       domain:'https://api.weixin.qq.com'

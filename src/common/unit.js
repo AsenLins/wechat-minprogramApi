@@ -75,6 +75,10 @@ function signToMD5(params, payKey) {
 
 }
 
+function verifyPaySign(){
+    
+}
+
 
 /**
  * 校验微信小程序用户信息

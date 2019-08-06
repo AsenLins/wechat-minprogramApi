@@ -17,7 +17,7 @@
   ],
   "scripts": {
    
-    "test": "mocha -r intelli-espower-loader test/common/proxy.test.js",
+    "test": "mocha -r intelli-espower-loader test/interface/acode.test.js",
     "start": "babel-node ./index.js"
   },
   "author": "asen",
