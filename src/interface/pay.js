@@ -134,7 +134,7 @@ class Pay extends Base {
         //console.log(payParams);
         //console.log('payResult',payResult);
         //console.log('xml=',payParamsXml);
-        return xmlToJson(payResult).xml;
+        return xmlToJson(payResult);
     }
 
 

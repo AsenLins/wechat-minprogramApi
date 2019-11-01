@@ -1,11 +1,8 @@
 const crypto = require('crypto');
-const parse = require('fast-xml-parser');
 const cryptoRandomString = require('crypto-random-string');
 const WXBizDataCrypt = require('../tools/WXBizDataCrypt');
-
-const JsonToXmlParser = parse.j2xParser;
-const XmlToJsonParser = parse;
 const config=require('./config');
+var convert = require('xml-js');
 
 
 
@@ -24,8 +21,12 @@ function getNonceStr() {
  * @param {*} jsonObj  需要转换的json对象
  */
 function jsonToXml(jsonObj) {
-    const J2XMLParser = new JsonToXmlParser();
-    return `<xml>${J2XMLParser.parse(jsonObj)}</xml>`;
+    const result = convert.js2xml(jsonObj, {
+        compact: true, 
+        ignoreComment: false, 
+        spaces: 4
+    });
+    return `<xml>${result}</xml>`
 }
 
 /**
@@ -33,8 +34,12 @@ function jsonToXml(jsonObj) {
  * @param {*} xmlObj 需要转换的xml对象
  */
 function xmlToJson(xmlObj) {
-    var tObj = XmlToJsonParser.getTraversalObj(xmlObj);
-    return XmlToJsonParser.convertToJson(tObj);
+    var result = convert.xml2js(xmlObj, {compact: false, spaces: 4});
+    let jsonResult={};
+    result.elements[0].elements.forEach(item=>{
+        jsonResult[item.name]=item.elements[0].text!==undefined?item.elements[0].text:item.elements[0].cdata;
+    });
+    return jsonResult
 }
 /**
  * 根据ASCII排序指定对象
