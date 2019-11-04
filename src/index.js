@@ -37,6 +37,7 @@ const templateMessage=require('./interface/templateMessage');
 const analysis=require('./interface/analysis');
 const units=require('./common/unit');
 const config=require('./common/config');
+const httpProxy=require('./common/proxy');
 
 module.exports={
     auth,
@@ -45,6 +46,7 @@ module.exports={
     templateMessage,
     analysis,
     units,
-    config
+    config,
+    httpProxy
 }
 
